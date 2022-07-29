@@ -68,7 +68,7 @@
           </span>
         </button>
         <ul x-show="open" style="display:none;" @click.outside="open = false"
-          class="absolute z-50 top-full right-0 bg-white rounded-lg ring-1 ring-slate-900/10 shadow-lg overflow-hidden w-36 py-1 text-sm text-slate-700 font-semibold dark:bg-slate-800 dark:ring-0 dark:highlight-white/5 dark:text-slate-300 mt-4"
+          class="absolute z-50 top-full right-0 bg-white rounded-lg ring-1 ring-slate-900/10 shadow-lg overflow-hidden w-36 py-1 text-sm text-slate-700 font-semibold dark:bg-slate-800 dark:ring-0 dark:highlight-white/5 dark:text-slate-300 dark:highlight-white/5 mt-4"
           aria-orientation="vertical" role="listbox" tabindex="0">
           <li @click="theme='light'; setTheme('light');" :class="theme=='light'?'text-sky-500':''"
             class="py-1 px-2 flex items-center cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-600" role="option"
