@@ -6,8 +6,7 @@ module.exports = {
   darkMode: 'class',
   theme: {
     container: {
-      center: true,
-      padding: '2rem',
+      center: true      
     },
     extend: {
       fontFamily: {
