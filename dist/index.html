@@ -1,368 +1,100 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-  <link href="output.css" rel="stylesheet">
-  <script src="//unpkg.com/alpinejs" defer></script>
-  <script>
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="output.css" rel="stylesheet">
 </head>
 
-<body class="antialiased text-slate-600 dark:text-slate-400 bg-white dark:bg-slate-900">
-  <div class="container px-4 sm:px-8 max-w-5xl">
-    <div class="relative flex justify-end items-center mt-8 mb-7 md:mt-16 md:mb-14">
-      <a href="#">EN</a>
-      <div x-data="{
-        open: false,
-        theme: '',
-        setTheme: m => {        
-            if (m === 'dark') {
-                document.documentElement.classList.add('dark')
-                localStorage.theme = 'dark'                
-            } else if (m === 'light') {
-                document.documentElement.classList.remove('dark')
-                localStorage.theme = 'light'                
-            } else{
-              document.documentElement.classList.remove('dark')
-              localStorage.removeItem('theme')              
-            }
-        }
-      }" x-init="() => {
-        const m = localStorage.getItem('theme');
-        if (m !== 'dark' && m !== 'light') return;
-        theme = m;
-      }" class="flex items-center border-l border-slate-200 ml-6 pl-6 dark:border-slate-800">
-        <label class="sr-only">Theme</label>
-        <button @click="open = !open" type="button" aria-haspopup="true" aria-expanded="true">
-          <span class="dark:hidden">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-              class="w-6 h-6">
-              <path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                :class="theme=='light'?'fill-sky-400/20 stroke-sky-500':'stroke-slate-400 dark:stroke-slate-500'">
-              </path>
-              <path
-                d="M12 4v1M17.66 6.344l-.828.828M20.005 12.004h-1M17.66 17.664l-.828-.828M12 20.01V19M6.34 17.664l.835-.836M3.995 12.004h1.01M6 6l.835.836"
-                :class="theme=='light'?'stroke-sky-500':'stroke-slate-400 dark:stroke-slate-500'"></path>
-            </svg>
-          </span>
-          <span class="hidden dark:inline">
-            <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6">
-              <path fill-rule="evenodd" clip-rule="evenodd"
-                d="M17.715 15.15A6.5 6.5 0 0 1 9 6.035C6.106 6.922 4 9.645 4 12.867c0 3.94 3.153 7.136 7.042 7.136 3.101 0 5.734-2.032 6.673-4.853Z"
-                :class="theme=='dark'? 'fill-sky-400/20':'fill-transparent'"></path>
-              <path
-                d="m17.715 15.15.95.316a1 1 0 0 0-1.445-1.185l.495.869ZM9 6.035l.846.534a1 1 0 0 0-1.14-1.49L9 6.035Zm8.221 8.246a5.47 5.47 0 0 1-2.72.718v2a7.47 7.47 0 0 0 3.71-.98l-.99-1.738Zm-2.72.718A5.5 5.5 0 0 1 9 9.5H7a7.5 7.5 0 0 0 7.5 7.5v-2ZM9 9.5c0-1.079.31-2.082.845-2.93L8.153 5.5A7.47 7.47 0 0 0 7 9.5h2Zm-4 3.368C5 10.089 6.815 7.75 9.292 6.99L8.706 5.08C5.397 6.094 3 9.201 3 12.867h2Zm6.042 6.136C7.718 19.003 5 16.268 5 12.867H3c0 4.48 3.588 8.136 8.042 8.136v-2Zm5.725-4.17c-.81 2.433-3.074 4.17-5.725 4.17v2c3.552 0 6.553-2.327 7.622-5.537l-1.897-.632Z"
-                :class="theme=='dark'?'fill-sky-500':'fill-slate-400 dark:fill-slate-500'"></path>
-              <path fill-rule="evenodd" clip-rule="evenodd"
-                d="M17 3a1 1 0 0 1 1 1 2 2 0 0 0 2 2 1 1 0 1 1 0 2 2 2 0 0 0-2 2 1 1 0 1 1-2 0 2 2 0 0 0-2-2 1 1 0 1 1 0-2 2 2 0 0 0 2-2 1 1 0 0 1 1-1Z"
-                :class="theme=='dark'?'fill-sky-500':'fill-slate-400 dark:fill-slate-500'"></path>
-            </svg>
-          </span>
-        </button>
-        <ul x-show="open" style="display:none;" @click.outside="open = false"
-          class="absolute z-50 top-full right-0 bg-white rounded-lg ring-1 ring-slate-900/10 shadow-lg overflow-hidden w-36 py-1 text-sm text-slate-700 font-semibold dark:bg-slate-800 dark:ring-0 dark:highlight-white/5 dark:text-slate-300 dark:highlight-white/5 mt-4"
-          aria-orientation="vertical" role="listbox" tabindex="0">
-          <li @click="theme='light'; setTheme('light');" :class="theme=='light'?'text-sky-500':''"
-            class="py-1 px-2 flex items-center cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-600" role="option"
-            tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round" class="w-6 h-6 mr-2">
-              <path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                :class="theme=='light'?'fill-sky-400/20 stroke-sky-500':'stroke-slate-400 dark:stroke-slate-500'">
-              </path>
-              <path :class="theme=='light'?'stroke-sky-500':'stroke-slate-400 dark:stroke-slate-500'"
-                d="M12 4v1M17.66 6.344l-.828.828M20.005 12.004h-1M17.66 17.664l-.828-.828M12 20.01V19M6.34 17.664l.835-.836M3.995 12.004h1.01M6 6l.835.836">
-              </path>
-            </svg>Light</li>
-          <li @click="theme='dark';setTheme('dark');" :class="theme=='dark'?'text-sky-500':''"
-            class="py-1 px-2 flex items-center cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-600" role="option"
-            tabindex="-1"><svg viewBox="0 0 24 24" fill="none" class="w-6 h-6 mr-2">
-              <path fill-rule="evenodd" clip-rule="evenodd" :class="theme=='dark'? 'fill-sky-400/20':'fill-transparent'"
-                d="M17.715 15.15A6.5 6.5 0 0 1 9 6.035C6.106 6.922 4 9.645 4 12.867c0 3.94 3.153 7.136 7.042 7.136 3.101 0 5.734-2.032 6.673-4.853Z">
-              </path>
-              <path
-                d="m17.715 15.15.95.316a1 1 0 0 0-1.445-1.185l.495.869ZM9 6.035l.846.534a1 1 0 0 0-1.14-1.49L9 6.035Zm8.221 8.246a5.47 5.47 0 0 1-2.72.718v2a7.47 7.47 0 0 0 3.71-.98l-.99-1.738Zm-2.72.718A5.5 5.5 0 0 1 9 9.5H7a7.5 7.5 0 0 0 7.5 7.5v-2ZM9 9.5c0-1.079.31-2.082.845-2.93L8.153 5.5A7.47 7.47 0 0 0 7 9.5h2Zm-4 3.368C5 10.089 6.815 7.75 9.292 6.99L8.706 5.08C5.397 6.094 3 9.201 3 12.867h2Zm6.042 6.136C7.718 19.003 5 16.268 5 12.867H3c0 4.48 3.588 8.136 8.042 8.136v-2Zm5.725-4.17c-.81 2.433-3.074 4.17-5.725 4.17v2c3.552 0 6.553-2.327 7.622-5.537l-1.897-.632Z"
-                :class="theme=='dark'?'fill-sky-500':'fill-slate-400 dark:fill-slate-500'"></path>
-              <path fill-rule="evenodd" clip-rule="evenodd"
-                d="M17 3a1 1 0 0 1 1 1 2 2 0 0 0 2 2 1 1 0 1 1 0 2 2 2 0 0 0-2 2 1 1 0 1 1-2 0 2 2 0 0 0-2-2 1 1 0 1 1 0-2 2 2 0 0 0 2-2 1 1 0 0 1 1-1Z"
-                :class="theme=='dark'?'fill-sky-500':'fill-slate-400 dark:fill-slate-500'"></path>
-            </svg>Dark</li>
-          <li @click="theme='';setTheme('');" :class="theme==''?'text-sky-500':''"
-            class="py-1 px-2 flex items-center cursor-pointer  hover:bg-slate-50 dark:hover:bg-slate-600" role="option"
-            tabindex="-1" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" class="w-6 h-6 mr-2">
-              <path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6Z" stroke-width="2"
-                stroke-linejoin="round"
-                :class="theme==''?'stroke-sky-500 fill-sky-400/20':'stroke-slate-400 dark:stroke-slate-500'"></path>
-              <path d="M14 15c0 3 2 5 2 5H8s2-2 2-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                :class="theme==''?'stroke-sky-500 ':'stroke-slate-400 dark:stroke-slate-500'"></path>
-            </svg>System</li>
-        </ul>
-      </div>
+<body>
+    <div class="bg-white">
 
+        <div class="bg-white">
+            <main class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
+
+                <div class="max-w-xl mx-auto py-16 sm:py-24">
+                    <div class="text-center">
+                        <p class="text-sm font-semibold text-sky-600 uppercase tracking-wide">Welcome to / Bienvenido a</p>
+                        <h1 class="mt-2 text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">Javier Cárdenas</h1>
+                        <p class="mt-2 text-lg text-gray-500">Website</p>
+                    </div>
+                    <div class="mt-12">
+                        <h2 class="text-sm font-semibold text-gray-500 tracking-wide uppercase">Resume / Hoja de vida
+                        </h2>
+                        <ul role="list" class="mt-4 border-t border-b border-gray-200 divide-y divide-gray-200">
+
+
+
+                            <li class="relative py-6 flex items-start space-x-4">
+                                <div class="flex-shrink-0">
+                                    <span
+                                        class="flex items-center justify-center h-12 w-12 rounded-lg bg-sky-50 text-sky-700">
+                                        EN
+                                    </span>
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <h3 class="text-base font-medium text-gray-900">
+                                        <span
+                                            class="rounded-sm focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-sky-500">
+                                            <a href="./en/index.html" class="focus:outline-none">
+                                                <span class="absolute inset-0" aria-hidden="true"></span>
+                                                English
+                                            </a>
+                                        </span>
+                                    </h3>
+                                    <p class="text-base text-gray-500">Read my resume in English</p>
+                                </div>
+                                <div class="flex-shrink-0 self-center">
+                                    <svg class="h-5 w-5 text-gray-400"
+                                        x-description="Heroicon name: solid/chevron-right"
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                        aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            </li>
+
+                            <li class="relative py-6 flex items-start space-x-4">
+                                <div class="flex-shrink-0">
+                                    <span
+                                        class="flex items-center justify-center h-12 w-12 rounded-lg bg-sky-50 text-sky-700">
+                                        ES
+                                    </span>
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <h3 class="text-base font-medium text-gray-900">
+                                        <span
+                                            class="rounded-sm focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-sky-500">
+                                            <a href="./es/index.html" class="focus:outline-none">
+                                                <span class="absolute inset-0" aria-hidden="true"></span>
+                                                Español
+                                            </a>
+                                        </span>
+                                    </h3>
+                                    <p class="text-base text-gray-500">Lee my hoja de vida en Español</p>
+                                </div>
+                                <div class="flex-shrink-0 self-center">
+                                    <svg class="h-5 w-5 text-gray-400"
+                                        x-description="Heroicon name: solid/chevron-right"
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                        aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </main>
+        </div>
     </div>
-    <div class="grid grid-cols-1 gap-y-9 sm:grid-cols-3 sm:gap-10 mb-12 md:mb-16">
-      <div class="col-span-2">
-        <h1 class="text-4xl leading-10 md:text-6xl md:leading-none font-medium text-slate-900 dark:text-slate-200">Javier Cárdenas</h1>
-        <h2 class="text-xl leading-7 md:text-3xl md:leading-9 font-normal mt-3.5 md:mt-4 text-slate-900 dark:text-slate-200">Magento Technical Leader</h2>
-        <a href="#" class="inline-block md:text-2xl md:leading-8 font-normal underline underline-offset-8 mt-3.5 ">+507
-          6813
-          9889</a>
-        <span class="inline-block bg-current rounded-full w-1 h-1 ml-2 mr-2 mb-1 "></span>
-        <a href="#"
-          class="inline-block md:text-2xl md:leading-8 font-normal underline underline-offset-8 mt-3.5 ">neo1807@gmail.com</a>
-      </div>
-      <div>
-        <picture>
-          <source media="(max-width: 767px)" sizes="(max-width: 512px) 100vw, 512px" srcset="
-          ./javier/javier_jz8lgn_ar_1_1,c_fill,g_auto__c_scale,w_200.jpg 200w,
-          ./javier/javier_jz8lgn_ar_1_1,c_fill,g_auto__c_scale,w_512.jpg 512w">          
-          <img sizes="(max-width: 1280px) 40vw, 512px" srcset="
-          ./javier/javier_jz8lgn_c_scale,w_480.jpg 480w,
-          ./javier/javier_jz8lgn_c_scale,w_512.jpg 512w" src="./javier/javier_jz8lgn_c_scale,w_512.jpg" width="158"
-            alt="Javier Cardenas" class="w-full max-w-sm sm:w-32 md:w-40 drop-shadow rounded-lg">
-        </picture>
-      </div>
-    </div>
-    <div class="grid grid-cols-1 gap-y-12 lg:grid-cols-3 lg:gap-10">
-      <div class="lg:col-span-2">
-        <h3 class="text-base leading-6 font-medium uppercase ">Experience</h3>
-        <div class="mb-14 mt-6">
-          <div class="flex sm:items-center flex-wrap mb-8 md:mb-9">
-            <div class="bg-black rounded-lg p-1.5 mb-7 mr-7 sm:mb-0 drop-shadow">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_43_98)">
-                  <path
-                    d="M17.4453 41.7825C7.82596 41.8189 0.0322141 34.1397 0.000114672 24.5916C-0.0341248 14.7991 7.60341 7.02574 17.2827 7.00005C26.8291 6.9765 34.779 14.6407 34.8133 23.9129C34.8496 33.9792 27.3063 41.744 17.4453 41.7825ZM17.4453 14.8741C12.172 14.8527 7.87454 19.102 7.83452 24.3775C7.8174 29.5754 12.2302 33.9941 17.4111 33.9663C22.6373 33.9145 26.8682 29.702 26.9446 24.4738C26.9801 19.2076 22.7415 14.9098 17.4776 14.8743C17.4639 14.8741 17.4505 14.8741 17.4368 14.8741H17.4453Z"
-                    fill="white" stroke="white" stroke-width="0.00386179" />
-                  <path
-                    d="M47.9999 36.3908C47.9864 39.3822 45.5513 41.7962 42.5612 41.7825C39.571 41.769 37.1577 39.333 37.1714 36.3416C37.1851 33.3504 39.6202 30.9364 42.6104 30.9499C45.6006 30.9636 48.0136 33.3996 47.9999 36.3908Z"
-                    fill="#122DFF" stroke="#122DFF" stroke-width="0.00386179" />
-                </g>
-                <defs>
-                  <clipPath id="clip0_43_98">
-                    <rect width="48" height="48" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-            </div>
-            <div class="w-full sm:w-auto">
-              <h4 class="text-xl leading-7 md:text-2xl md:leading-8 font-medium text-slate-900 dark:text-slate-200">Magento Tech Lead @ Omni Pro
-              </h4>
-              <span class="text-lg leading-7 font-normal ">January 2021 – Today</span>
-            </div>
-          </div>
-          <ul class="list-disc pl-4 md:pl-10">
-            <li class="pl-6 md:pl-12 mb-3 text-base leading-6 font-normal ">Mentoring, coaching, and leading a
-              team of four developers.</li>
-            <li class="pl-6 md:pl-12 mb-3 text-base leading-6 font-normal ">Promote good development practices
-              through code reviews and seminars.</li>
-            <li class="pl-6 md:pl-12 mb-3 text-base leading-6 font-normal ">Requirement analysis, estimation,
-              development, delegation.</li>
-            <li class="pl-6 md:pl-12 mb-3 text-base leading-6 font-normal ">Handling escalations of mid to
-              high-level of difficulty regarding any aspect of Magento issues and frontend issues with HTML, CSS</li>
-          </ul>
-        </div>
-        <div class="mb-14 ">
-          <div class="flex sm:items-center flex-wrap mb-8 md:mb-9">
-            <div class="bg-black rounded-lg p-1.5 mb-7 mr-7 sm:mb-0 drop-shadow">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_43_98)">
-                  <path
-                    d="M17.4453 41.7825C7.82596 41.8189 0.0322141 34.1397 0.000114672 24.5916C-0.0341248 14.7991 7.60341 7.02574 17.2827 7.00005C26.8291 6.9765 34.779 14.6407 34.8133 23.9129C34.8496 33.9792 27.3063 41.744 17.4453 41.7825ZM17.4453 14.8741C12.172 14.8527 7.87454 19.102 7.83452 24.3775C7.8174 29.5754 12.2302 33.9941 17.4111 33.9663C22.6373 33.9145 26.8682 29.702 26.9446 24.4738C26.9801 19.2076 22.7415 14.9098 17.4776 14.8743C17.4639 14.8741 17.4505 14.8741 17.4368 14.8741H17.4453Z"
-                    fill="white" stroke="white" stroke-width="0.00386179" />
-                  <path
-                    d="M47.9999 36.3908C47.9864 39.3822 45.5513 41.7962 42.5612 41.7825C39.571 41.769 37.1577 39.333 37.1714 36.3416C37.1851 33.3504 39.6202 30.9364 42.6104 30.9499C45.6006 30.9636 48.0136 33.3996 47.9999 36.3908Z"
-                    fill="#122DFF" stroke="#122DFF" stroke-width="0.00386179" />
-                </g>
-                <defs>
-                  <clipPath id="clip0_43_98">
-                    <rect width="48" height="48" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-            </div>
-            <div class="w-full sm:w-auto">
-              <h4 class="text-xl leading-7 md:text-2xl md:leading-8 font-medium text-slate-900 dark:text-slate-200">Magento Frontend Dev @ Omni
-                Pro</h4>
-              <span class="text-lg leading-7 font-normal ">July 2019 – December 2020</span>
-            </div>
-          </div>
-          <ul class="list-disc pl-4 md:pl-10">
-            <li class="pl-6 md:pl-12 mb-3 text-base leading-6 font-normal ">Built several Magento templates based
-              on Luma.</li>
-            <li class="pl-6 md:pl-12 mb-3 text-base leading-6 font-normal ">Collaborated with the design team to
-              develop website features.</li>
-            <li class="pl-6 md:pl-12 mb-3 text-base leading-6 font-normal ">Customized website extensions and
-              tested its functionality.</li>
-            <li class="pl-6 md:pl-12 mb-3 text-base leading-6 font-normal ">Optimized several website’s loading
-              time and performance.</li>
-          </ul>
-        </div>
-        <div class="mb-14 ">
-          <div class="flex sm:items-center flex-wrap mb-8 md:mb-9">
-            <div class="bg-white rounded-lg p-1.5 mb-7 mr-7 sm:mb-0 drop-shadow">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M34.5488 18.4055H22.7979C21.8464 18.4055 21.0852 17.6444 21.0852 16.6929V4.89441C21.0852 3.94292 21.8464 3.18173 22.7979 3.18173H34.5488C35.5003 3.18173 36.2614 3.94292 36.2614 4.89441V16.6929C36.2614 17.6444 35.5003 18.4055 34.5488 18.4055Z"
-                  fill="#4285F4" />
-                <path
-                  d="M23.9872 39.4357H14.5674C13.8062 39.4357 13.2354 38.8172 13.2354 38.1036V28.6839C13.2354 27.9227 13.8538 27.3518 14.5674 27.3518H23.9872C24.7484 27.3518 25.3193 27.9702 25.3193 28.6839V38.1036C25.3668 38.8648 24.7484 39.4357 23.9872 39.4357Z"
-                  fill="#4285F4" />
-                <path
-                  d="M22.7975 19.502C21.4179 19.502 20.2761 18.5505 20.0382 17.2185V17.1709C19.9906 17.0282 19.8479 16.8854 19.6576 16.8854H11.57C10.7136 16.8854 10 17.5991 10 18.4554V28.4936C10 29.3499 10.7136 30.0635 11.57 30.0635H11.9981C12.1884 30.0635 12.3311 29.9208 12.3787 29.7305V28.6839C12.3787 27.447 13.3778 26.4003 14.6623 26.4003H22.8927C23.083 26.4003 23.2257 26.21 23.2257 26.0197V19.8826C23.1781 19.6923 22.9878 19.502 22.7975 19.502Z"
-                  fill="#4285F4" />
-                <path
-                  d="M35.2612 34.2501H26.6027C26.4124 34.2501 26.2697 34.3928 26.2697 34.5831V38.1987C26.2697 39.2929 25.4133 40.2444 24.3191 40.3396C24.1288 40.3396 23.9861 40.5299 23.9861 40.7202V45.5728C23.9861 46.3815 24.6046 47 25.4133 47H35.3088C36.1176 47 36.736 46.3815 36.736 45.5728V35.6773C36.6885 34.8685 36.07 34.2501 35.2612 34.2501Z"
-                  fill="#4285F4" />
-                <path
-                  d="M33.55 2.08893C34.3112 2.08893 35.1199 2.04135 35.8811 2.04135C36.0239 2.04135 36.2142 2.04135 36.3569 2.08893C36.2617 2.08893 36.3569 2.08893 36.4045 2.08893C36.452 2.08893 36.452 2.08893 36.4996 2.08893C36.5948 2.08893 36.6423 2.1365 36.7375 2.1365C36.7851 2.1365 36.8802 2.18407 36.9278 2.18407C37.0229 2.23165 36.8802 2.1365 36.9278 2.18407C36.9754 2.18407 36.9754 2.23165 37.0229 2.23165C37.0705 2.27922 37.1181 2.27922 37.1656 2.3268C37.2132 2.37437 37.1181 2.27922 37.1656 2.3268C37.2132 2.37437 37.2132 2.37437 37.2608 2.37437L37.3084 2.42195C37.3559 2.46952 37.3084 2.42195 37.3084 2.42195C37.3559 2.46952 37.4035 2.56467 37.4035 2.61224C37.4035 2.61224 37.4511 2.70739 37.4511 2.65982C37.4511 2.61224 37.4511 2.70739 37.4511 2.70739C37.4987 2.80254 37.4987 2.85012 37.4987 2.94526C37.4987 2.99284 37.4987 3.04041 37.5462 3.08799C37.5462 3.13556 37.5462 3.08799 37.5462 3.08799V3.13556C37.5462 3.23071 37.5462 3.32586 37.5462 3.42101C37.5462 3.46858 37.5462 3.51616 37.5462 3.56373C37.5462 4.03948 37.5462 4.51522 37.5462 4.94339C37.5462 5.37156 37.5462 5.8473 37.5462 6.27547C37.5462 6.79879 38.4026 6.79879 38.4026 6.27547C38.4026 5.37156 38.4026 4.46765 38.4026 3.56373C38.4026 2.94526 38.3074 2.3268 37.9268 1.80348C37.4987 1.28016 36.8326 1.08986 36.2142 1.04229C35.3102 0.94714 34.4539 1.04229 33.55 1.04229C32.9791 1.23259 32.9791 2.08893 33.55 2.08893Z"
-                  fill="black" />
-                <path
-                  d="M33.5497 33.1535C34.3109 33.1535 35.1197 33.106 35.8809 33.106C36.0236 33.106 36.2139 33.106 36.3566 33.1535C36.2615 33.1535 36.3566 33.1535 36.4042 33.1535C36.4518 33.1535 36.4518 33.1535 36.4993 33.1535C36.5945 33.1535 36.6421 33.2011 36.7372 33.2011C36.7848 33.2011 36.8799 33.2487 36.9275 33.2487C37.0226 33.2963 36.8799 33.2011 36.9275 33.2487C36.9751 33.2487 36.9751 33.2963 37.0226 33.2963C37.0702 33.3438 37.1178 33.3438 37.1654 33.3914C37.2129 33.439 37.1178 33.3438 37.1654 33.3914C37.2129 33.439 37.2129 33.439 37.2605 33.439L37.3081 33.4866C37.3557 33.5341 37.3081 33.4866 37.3081 33.4866C37.3557 33.5341 37.4032 33.6293 37.4032 33.6768C37.4032 33.6768 37.4508 33.772 37.4508 33.7244C37.4508 33.6769 37.4508 33.772 37.4508 33.772C37.4984 33.8671 37.4984 33.9147 37.4984 34.0099C37.4984 34.0574 37.4984 34.105 37.546 34.1526C37.546 34.2002 37.546 34.1526 37.546 34.1526V34.2002C37.546 34.2953 37.546 34.3905 37.546 34.4856C37.546 34.5332 37.546 34.5808 37.546 34.6283C37.546 35.1041 37.546 35.5798 37.546 36.008C37.546 36.4362 37.546 36.9119 37.546 37.3401C37.546 37.8634 38.4023 37.8634 38.4023 37.3401C38.4023 36.4362 38.4023 35.5322 38.4023 34.6283C38.4023 34.0099 38.3072 33.3914 37.9266 32.8681C37.4984 32.3448 36.8323 32.1545 36.2139 32.1069C35.31 32.0117 34.4536 32.1069 33.5497 32.1069C33.0264 32.3448 33.0264 33.2011 33.5497 33.1535Z"
-                  fill="black" />
-              </svg>
-            </div>
-            <div class="w-full sm:w-auto">
-              <h4 class="text-xl leading-7 md:text-2xl md:leading-8 font-medium text-slate-900 dark:text-slate-200">Fullstack Web Developer @
-                Criptonoticias</h4>
-              <span class="text-lg leading-7 font-normal ">July 2017 – June 2019</span>
-            </div>
-          </div>
-          <ul class="list-disc pl-4 md:pl-10">
-            <li class="pl-6 md:pl-12 mb-3 text-base leading-6 font-normal ">Built several plugins regarding
-              cryptocurrencies and news workflow.</li>
-            <li class="pl-6 md:pl-12 mb-3 text-base leading-6 font-normal ">Migrated the website from multiple
-              hosting providers.</li>
-            <li class="pl-6 md:pl-12 mb-3 text-base leading-6 font-normal ">Designed and implemented two WordPress
-              themes.</li>
-            <li class="pl-6 md:pl-12 mb-3 text-base leading-6 font-normal ">Monitored and improved the performance
-              of the live website.</li>
-          </ul>
-        </div>
-        <div class="md:mb-14 ">
-          <div class="flex sm:items-center flex-wrap mb-8 md:mb-9">
-            <div class="bg-yellow-300 rounded-lg p-1.5 mb-7 mr-7 sm:mb-0 drop-shadow">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                  d="M36.1343 35.2175C35.9041 35.2169 35.6765 35.168 35.4664 35.0739C35.2563 34.9799 35.0682 34.8428 34.9144 34.6714C29.5669 29.3151 24.2165 23.9624 18.8631 18.6135C15.7321 15.4847 12.6165 12.3404 9.46344 9.23364C9.29596 9.07444 9.1626 8.88284 9.07147 8.6705C8.98034 8.45815 8.93335 8.22949 8.93335 7.99841C8.93335 7.76734 8.98034 7.53867 9.07147 7.32633C9.1626 7.11398 9.29596 6.92238 9.46344 6.76318C11.5699 4.72281 13.6447 2.65162 15.688 0.549603C16.4477 -0.227644 17.4627 -0.137369 18.1519 0.549603C26.6143 9.03841 35.0847 17.5147 43.5633 25.9786C44.3493 26.7647 44.3515 27.6388 43.5633 28.4314C41.4935 30.5056 39.4223 32.5753 37.3497 34.6406C37.1982 34.8158 37.0119 34.9576 36.8027 35.0569C36.5934 35.1563 36.3658 35.2109 36.1343 35.2175V35.2175Z"
-                  fill="#323E48" />
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                  d="M9.24778 33.5859C9.25018 33.3672 9.29576 33.1512 9.38191 32.9501C9.46807 32.7491 9.59309 32.5671 9.7498 32.4145C12.7384 29.423 15.7292 26.4336 18.7223 23.4465C18.8703 23.2887 19.0496 23.1634 19.2486 23.0786C19.4477 22.9938 19.6622 22.9513 19.8785 22.9537C20.0949 22.9562 20.3084 23.0037 20.5054 23.093C20.7025 23.1824 20.8788 23.3118 21.0232 23.4729C25.2404 27.6843 29.4555 31.8993 33.6683 36.118C34.3641 36.8138 34.3751 37.7474 33.6815 38.4454C30.6959 41.4384 27.7065 44.427 24.7135 47.4112C24.0287 48.0938 23.1326 48.0718 22.3443 47.3496C22.2892 47.3011 22.2386 47.2461 22.1858 47.1933L9.93695 34.9445C9.56705 34.5679 9.24117 34.1584 9.24778 33.5859Z"
-                  fill="#323E48" />
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                  d="M12.6781 15.8105C12.6908 16.0214 12.6581 16.2326 12.5821 16.4298C12.5061 16.6269 12.3887 16.8055 12.2378 16.9533C11.8458 17.3518 11.4473 17.7481 11.0488 18.1445C10.2759 18.9085 9.39299 18.9481 8.60913 18.1841C7.23519 16.8454 5.87812 15.4876 4.53794 14.1107C3.78271 13.3335 3.83776 12.4439 4.6084 11.6711L5.6939 10.5878C6.42051 9.86558 7.35409 9.82815 8.08289 10.5437C9.46344 11.8979 10.8242 13.2696 12.1827 14.6414C12.3465 14.7875 12.4759 14.9682 12.5616 15.1704C12.6472 15.3725 12.687 15.5912 12.6781 15.8105V15.8105Z"
-                  fill="#323E48" />
-              </svg>              
-            </div>
-            <div class="w-full sm:w-auto">
-              <h4 class="text-xl leading-7 md:text-2xl md:leading-8 font-medium text-slate-900 dark:text-slate-200">Web Developer @ Darien
-                Technology</h4>
-              <span class="text-lg leading-7 font-normal ">July 2014 – June 2017</span>
-            </div>
-          </div>
-          <ul class="list-disc pl-4 md:pl-10">
-            <li class="pl-6 md:pl-12 mb-3 text-base leading-6 font-normal ">I met with clients to discuss website
-              design and function.</li>
-            <li class="pl-6 md:pl-12 mb-3 text-base leading-6 font-normal ">Built fully functional WordPress
-              websites based on business requirements and design specs</li>
-          </ul>
-        </div>
-      </div>
-      <div class="md:grid md:grid-cols-3 md:gap-x-10 lg:block">
-        <div class="mb-12">
-          <h3 class="text-base leading-6 font-medium uppercase ">Education</h3>
-          <div class="mt-6">
-            <h5 class="text-xl leading-7 font-medium text-slate-900 dark:text-slate-200">BA Systems Engineering</h5>
-            <span class="text-base leading-6 font-normal ">Universidad Metropolitana (VE) 2012</span>
-          </div>
-        </div>
-        <div class="mb-12">
-          <h3 class="text-base leading-6 font-medium uppercase ">Certificates</h3>
-          <div class="mt-6">
-            <div class="mb-4">
-              <h5 class="text-xl leading-7 font-medium text-slate-900 dark:text-slate-200">Magento Javascript Developer
-              </h5>
-              <span class="text-base leading-6 font-normal ">Adobe Certified Expert 2021</span>
-            </div>
-            <div>
-              <h5 class="text-xl leading-7 font-medium text-slate-900 dark:text-slate-200">Magento Frontend Developer
-              </h5>
-              <span class="text-base leading-6 font-normal ">Adobe Certified Expert 2019</span>
-            </div>
-          </div>
-        </div>
-        <div class="mb-12">
-          <h3 class="text-base leading-6 font-medium uppercase ">Languages</h3>
-          <div class="mt-6">
-            <div class="mb-4">
-              <h5 class="text-xl leading-7 font-medium text-slate-900 dark:text-slate-200">Spanish</h5>
-              <span class="text-base leading-6 font-normal ">Native</span>
-            </div>
-            <div>
-              <h5 class="text-xl leading-7 font-medium text-slate-900 dark:text-slate-200">English</h5>
-              <span class="text-base leading-6 font-normal ">CEFR C1</span>
-            </div>
-          </div>
-        </div>
-        <div class="mb-12">
-          <h3 class="text-base leading-6 font-medium uppercase ">Skills</h3>
-          <div class="mt-6">
-            <div class="mb-2">
-              <span class="text-base leading-6 font-normal ">Teamwork</span>
-            </div>
-            <div class="mb-2">
-              <span class="text-base leading-6 font-normal ">Problem-Solving</span>
-            </div>
-            <div class="mb-2">
-              <span class="text-base leading-6 font-normal ">Version Control</span>
-            </div>
-            <div class="mb-2">
-              <span class="text-base leading-6 font-normal ">Responsive design</span>
-            </div>
-            <div class="mb-2">
-              <span class="text-base leading-6 font-normal ">Atention to details</span>
-            </div>
-            <div>
-              <span class="text-base leading-6 font-normal ">Creativity</span>
-            </div>
-          </div>
-        </div>
-        <div class="mb-12">
-          <h3 class="text-base leading-6 font-medium uppercase ">Tools</h3>
-          <div class="mt-6">
-            <div class="mb-2">
-              <span class="text-base leading-6 font-normal ">Figma</span>
-            </div>
-            <div class="mb-2">
-              <span class="text-base leading-6 font-normal ">Docker</span>
-            </div>
-            <div class="mb-2">
-              <span class="text-base leading-6 font-normal ">Git</span>
-            </div>
-            <div>
-              <span class="text-base leading-6 font-normal ">Jira</span>
-            </div>
-          </div>
-        </div>
-        <div class="mb-12">
-          <h3 class="text-base leading-6 font-medium uppercase ">Social</h3>
-          <div class="mt-6">
-            <div>
-              <a href="https://linkedin.com/in/javier-cardenas-pacheco"
-                class="text-base leading-6 font-normal  underline underline-offset-8">LinkedIn</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </body>
 
 </html>
